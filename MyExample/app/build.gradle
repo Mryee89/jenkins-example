@@ -41,4 +41,5 @@ dependencies {
     // Set this dependency to build and run UI Automator tests
     androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
     androidTestCompile 'com.android.support:support-annotations:23.1.1'
+    testCompile 'org.apache.maven:maven-ant-tasks:2.1.3'
 }

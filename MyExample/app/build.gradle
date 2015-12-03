@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
 
+def outputPathName = "D:\\testing.apk"
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
@@ -18,7 +20,16 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+        applicationVariants.all { variant ->
+            variant.outputs.each { output ->
+                def file = output.outputFile
+                output.outputFile = new File(file.parent, file.name.replace(".apk", "-" + defaultConfig.versionName + ".apk"))
+            }
+        }
     }
+
+
     lintOptions {
         abortOnError false
     }
@@ -43,3 +54,9 @@ dependencies {
     androidTestCompile 'com.android.support:support-annotations:23.1.1'
     testCompile 'org.apache.maven:maven-ant-tasks:2.1.3'
 }
+
+task cleanExtra(type: Delete) {
+    delete outputPathName
+}
+
+clean.dependsOn(cleanExtra)
